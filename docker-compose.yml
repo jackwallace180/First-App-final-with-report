@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  nginx:
+    container_name: nginx
+    restart: always
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/ssl/private:/etc/nginx/certs/private
+      - /etc/ssl/certs:/etc/nginx/certs
+
+  app:
+    container_name: myapp
+    restart: always
+    image: app1
+    ports:
+      - "3000:3000"
+    volumes:
+      - /~/app1/app:/app
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /~/app1/mongo:/data/db
+ 
